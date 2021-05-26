@@ -303,8 +303,9 @@ fitter.fit('differential_evolution');
 #np.random.seed(6)
 #fitter.initialise('jitter')
 #fitter.reset()
-```
 #fitter.sample(400, random_state=1,pool=2);
+```
+
 
 11. Check results with data and fit plots
 ```python
