@@ -6,9 +6,9 @@ The following material describes the software used for Neutron Reflectivity data
 
 ## Using RefNX software for modelling data
 
-Refnx is a powerful Python package  that has been used to model and fit the Neutron Reflectometry data obtained with Ofelia and Nellie [[1]](#1).
+Refnx is a powerful Python package  that has been used to model and fit the Neutron Reflectometry data obtained with the Confinement Cell Nellie [[1]](#1) and the Confinement and Shear cell Ofelia [[2]](#2).
 
-In our experiments, a Mixed Reflectivity model has been used following the provided guidelines for fitting the data using a Jupyter Notebook script from RefNX. Additional information on how to operate with RefNX can be found elsewhere [[2]](#2).  Here, a brief description of a fitted reflectivity experiment performed using Ofelia is presented:
+In our experiments, a Mixed Reflectivity model has been used following the provided guidelines for fitting the data using a Jupyter Notebook script from RefNX. Additional information on how to operate with RefNX can be found elsewhere [[3]](#3).  Here, a brief description of a fitted reflectivity experiment performed using Ofelia/Nellie is presented:
 
 1. Packages needed to load the fitting procedure
 
@@ -53,13 +53,22 @@ data_h2osample.name = "h2oSilanesmucins"
 data_hPS = ReflectDataset(os.path.join(pth,'Polysterene_Melinex.mft'))
 data_hPS.name = "hPS"
 
-#Pressure 1 bar, sample confined
+#Depending on the experiments, this list will be longer: several pressures, several shear speeds
+#Pressure 1 bar, sample confined, static
 data_P1_sample_confined = ReflectDataset(os.path.join(pth,'P1_sample_confined.mft'))
 data_P1_sample_confined.name = "P1_sample_confined"
 
-#Pressure 2 bar, sample confined
+#Pressure 2 bar, sample confined, static
 data_P2_sample_confined = ReflectDataset(os.path.join(pth,'P2_sample_confined.mft'))
 data_P2_sample_confined.name = "P2_sample_confined"
+
+#Pressure 1 bar, sample confined, v = 100 nm/s
+data_P1_sample_confined = ReflectDataset(os.path.join(pth,'P1_sample_confined.mft'))
+data_P1_sample_confined_v1.name = "P1_sample_confined_v1"
+
+#Pressure 2 bar, sample confined, v = 100 nm/s
+data_P2_sample_confined = ReflectDataset(os.path.join(pth,'P2_sample_confined.mft'))
+data_P2_sample_confined_v1.name = "P2_sample_confined_v1"
 ```
 
 4. SLD definitions
@@ -316,4 +325,7 @@ fitter.fit('differential_evolution');
 
 <a id="1">[1]</a>  Nelson, A. R., & Prescott, S. W. (2019). refnx: neutron and X-ray reflectometry analysis in Python. Journal of applied crystallography, 52(1), 193-200.
 
-<a id="2">[2]</a>  RefNX software.  Retrieved from https://refnx.readthedocs.io/en/latest/#
+<a id="2">[2]</a>
+Nordforsk Project: Neutron scattering of confined and sheared thin soft films. Retrieved from https://www.nordforsk.org/projects/neutron-scattering-confined-and-sheared-thin-soft-films (2021)
+
+<a id="3">[3]</a>  RefNX software.  Retrieved from https://refnx.readthedocs.io/en/latest/#
