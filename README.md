@@ -113,7 +113,7 @@ Melinex.real.name='silanes SLD'
 ```
 
 6. Modelling the sample using layers ("snabs") and Mixed Reflectivity. Depending on the data available, several fittings can be made. For example, if data for the unconfined sample, substrate or polysterene is provided, the Mixed Reflectivity will be easier using the results from those fits.
-
+```python
 #Si block D2O
 
 sio2_slab = sio2(13.8936, 2.19514)
@@ -289,23 +289,26 @@ model_d2omucinsconfined.bkg.setp(4.5921055645868026e-07,bounds=(1e-7, 9e-5), var
 
 objective_d2omucinsconfined = Objective(model_d2omucinsconfined, data_d2omucinsconfined,use_weights = True)
 global_objective = GlobalObjective([objective_d2omucinsconfined ])
-
+```
 8. Fitting procedure
-
+```python
 fitter = CurveFitter(global_objective)
 fitter.fit('least_squares');
 fitter.fit('differential_evolution');
-
+```
 9. Refining through MCMC 
 
+```python
 #fitter = CurveFitter(global_objective, nwalkers=200)
 #np.random.seed(6)
 #fitter.initialise('jitter')
 #fitter.reset()
-
+```
 #fitter.sample(400, random_state=1,pool=2);
-11. Check results with data and fit plots
 
+11. Check results with data and fit plots
+```python
+```
 ## References
 
 <a id="1">[1]</a>  Nelson, A. R., & Prescott, S. W. (2019). refnx: neutron and X-ray reflectometry analysis in Python. Journal of applied crystallography, 52(1), 193-200.
