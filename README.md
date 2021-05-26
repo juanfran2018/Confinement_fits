@@ -91,13 +91,13 @@ silanes = SLD(0.7+0J)
 silanes.real.setp(vary=False, bounds=(0.6, 0.8))
 silanes.real.name='silanes SLD'
 
-#SLD of the unconfined sample in D2O. Use "vary = True" if it is unknown.
+#SLD of the unconfined sample in D2O. Use "vary = False" if it is unknown.
 sldsample_d2o = Parameter(5.55583, 'sld sample d2o')
-sldsample_d2o.setp(vary = True, bounds = (5.2, 6.2))
+sldsample_d2o.setp(vary = False, bounds = (5.2, 6.2))
 
-#SLD of the unconfined sample in H2O. Use "vary = True" if it is unknown.
+#SLD of the unconfined sample in H2O. Use "vary = False" if it is unknown.
 sldsample_h2o = Parameter(5.82485, 'sld sample h2o')
-sldsample_h2o.setp(vary = True, bounds = (3.7, 5.9))
+sldsample_h2o.setp(vary = False, bounds = (3.7, 5.9))
 
 #SLD of the confined sample in D2O (in this case, the same as D2O unconfined).
 #sample_nopocket refers to the sample properly confined
@@ -118,12 +118,12 @@ nopockets.real.name='no pocket SLD 1'
 
 #SLD of the (hydrogenated) polysterene (theoretical value)
 hps = SLD(1.412 +0J)
-hps.real.setp(vary=True, bounds= (1.2, 2.8))
+hps.real.setp(vary=False, bounds= (1.2, 2.8))
 hps.real.name='sld hps'
 
 #SLD Melinex (already obtained)
 Melinex = SLD(2.53323 + 0J)
-Melinex.real.setp(vary=True, bounds=(2.4, 2.8))
+Melinex.real.setp(vary=False, bounds=(2.4, 2.8))
 Melinex.real.name='silanes SLD'
 ```
 
@@ -150,7 +150,7 @@ silanes_slab.vfsolv.name = 'silanes solvation'
 ```
 <!--- 
 solv_roughness1 = Parameter(1.762616, 'solvent roughness d2o')
-solv_roughness1.setp(vary=True, bounds=(1, 10))
+solv_roughness1.setp(vary=False, bounds=(1, 10))
 
 #Structure to be fitted
 s_d2oblock = si | sio2_slab | silanes_slab | d2o(0, solv_roughness1)
@@ -160,7 +160,7 @@ model_d2oblock = ReflectModel(s_d2oblock,scale=0.979909,dq_type = 'pointwise')
 model_d2oblock.scale.setp(bounds=(0.9, 1.4), vary=False)
 model_d2oblock.bkg.setp(8.17618e-07,bounds=(4e-8, 6e-6), vary=False)
 
-objective_d2oblock = Objective(model_d2oblock, data_d2oblock,use_weights = True)
+objective_d2oblock = Objective(model_d2oblock, data_d2oblock,use_weights = False)
 -->
 
 ```python
@@ -186,35 +186,33 @@ model_d2osample.scale.setp(bounds=(0.9, 1.4), vary=False)
 model_d2osample.bkg.setp(2.32067e-06,bounds=(4e-12, 1e-5), vary=False)
 #model_d2osample.dq.setp(4.6689,bounds=(1, 12), vary=False)
 
-objective_d2osample = Objective(model_d2osample, data_d2osample,use_weights = True)
+objective_d2osample = Objective(model_d2osample, data_d2osample,use_weights = False)
 -->
 
 ```python
 #Si block with sample and H2O
 
 sampleh2o_slab = sampleh2o(441.043, 4.07343)
-sampleh2o_slab.thick.setp(vary=True, bounds=(10, 900))
+sampleh2o_slab.thick.setp(vary=False, bounds=(10, 900))
 sampleh2o_slab.thick.constraint = sampled2o_slab.thick
 sampleh2o_slab.thick.name = 'sample thickness d2o'
-sampleh2o_slab.rough.setp(vary=True, bounds=(0.001, 30))
+sampleh2o_slab.rough.setp(vary=False, bounds=(0.001, 30))
 sampleh2o_slab.rough.constraint = sampled2o_slab.rough
-#sampleh2o_slab.rough.name = name='sample/silanes roughness'
-sampleh2o_slab.vfsolv.setp(0.924083, vary=True, bounds=(0.01, 1.0))
+sampleh2o_slab.vfsolv.setp(0.924083, vary=False, bounds=(0.01, 1.0))
 sampleh2o_slab.vfsolv.constraint = sampled2o_slab.vfsolv
-#sampleh2o_slab.vfsolv.name = 'sample h2o solvation'
 ```
 <!--- 
 #solv_roughness2 = Parameter(97.4674 , 'sample/solvent roughness')
-#solv_roughness2.setp(vary=True, bounds=(0.01, 200))
+#solv_roughness2.setp(vary=False, bounds=(0.01, 200))
 
 s_h2osample = si | sio2_slab | silanes_slab | sampleh2o_slab |h2o(0, solv_roughness2)
 
 model_h2osample = ReflectModel(s_h2osample,scale=1.0655, bkg=2.03462e-06, dq_type ='pointwise')
 model_h2osample.scale.setp(bounds=(0.9, 1.4), vary=False)
 model_h2osample.bkg.setp(bounds=(4e-9, 6e-6), vary=False)
-#model_h2osample.dq.setp(bounds=(4, 6), vary=True)
+#model_h2osample.dq.setp(bounds=(4, 6), vary=False)
 
-objective_h2osample = Objective(model_h2osample, data_h2osample,use_weights = True)
+objective_h2osample = Objective(model_h2osample, data_h2osample,use_weights = False)
 
 global_objective = GlobalObjective([objective_d2oblock,objective_d2osample,objective_h2osample])
 -->
@@ -239,9 +237,9 @@ s_hPS = air | hPS_slab1 | Melinex (0, solv_roughness3)
 model_hPS = ReflectModel(s_hPS,scale=1.01611, bkg=1.18178e-06, dq_type ='pointwise')
 model_hPS.scale.setp(bounds=(0.9, 1.4), vary=False)
 model_hPS.bkg.setp(bounds=(4e-9, 6e-6), vary=False)
-#model_hPS.dq.setp(bounds=(4, 6), vary=True)
+#model_hPS.dq.setp(bounds=(4, 6), vary=False)
 
-objective_hPS = Objective(model_hPS, data_hPS,use_weights = True)
+objective_hPS = Objective(model_hPS, data_hPS,use_weights = False)
 -->
 
 ```python
@@ -262,16 +260,16 @@ samplenopocket_slab.vfsolv.name = 'sample no pocket solvation'
 samplepocket_slab = samplepocket(93.4844 , 10.9347)
 samplepocket_slab.thick.setp(vary=False, bounds=(1, 140))
 samplepocket_slab.thick.name = 'sample pocket thickness'
-samplepocket_slab.rough.setp(vary=True, bounds=(0.001, 30))
+samplepocket_slab.rough.setp(vary=False, bounds=(0.001, 30))
 samplepocket_slab.rough.constraint = samplenopocket_slab.rough
 samplepocket_slab.vfsolv.setp(0.325543, vary=False, bounds=(0.01, 1.0))
 samplepocket_slab.vfsolv.name = 'sample pocket solvation'
 
-solv_roughness = Parameter(12.3995, 'd2o/hPS/sample roughness')
-solv_roughness.setp(vary=False, bounds=(3, 20))
+solv_roughness1 = Parameter(12.3995, 'No pocket roughness')
+solv_roughness1.setp(vary=False, bounds=(3, 20))
 
-solv_roughness = Parameter(22.6623, 'Melinex/d2o/hPS roughness')
-solv_roughness.setp(vary=False, bounds=(17, 30))
+solv_roughness2 = Parameter(22.6623, 'Pocket roughness')
+solv_roughness2.setp(vary=False, bounds=(17, 30))
 
 #The Mixed Reflectivity model needs a scale value for each reflectivity structure. The scale
 #can be used as the "proportion" of each reflectivity, when it is properly normalized.
@@ -281,8 +279,8 @@ scale2 = Parameter(0.007841735744284222, 'Scale pockets')
 scale2.setp(vary=False, bounds=(0.001, 1))
 
 #These are the two structures used for the Mixed Reflectivity
-s_d2osampleconfined1 = si | sio2_slab | silanes_slab | samplenopocket_slab | hPS_slab | nopockets(0, solv_roughness)
-s_d2osampleconfined2 = si | sio2_slab | silanes_slab | samplepocket_slab | pockets(0, solv_roughness)
+s_d2osampleconfined1 = si | sio2_slab | silanes_slab | samplenopocket_slab | hPS_slab | nopockets(0, solv_roughness1)
+s_d2osampleconfined2 = si | sio2_slab | silanes_slab | samplepocket_slab | pockets(0, solv_roughness2)
 s_d2osampleconfined1.solvent = SLD(6.36 + 0j)
 s_d2osampleconfined2.solvent = SLD(6.36 + 0j)
 
@@ -294,7 +292,7 @@ model_d2osampleconfined = MixedReflectModel(s_d2osampleconfined, scale, dq_type 
 model_d2osampleconfined.bkg.setp(4.5921055645868026e-07,bounds=(1e-7, 9e-5), vary=False)
 
 #Objective function to be fitted
-objective_d2osampleconfined = Objective(model_d2osampleconfined, data_d2osampleconfined,use_weights = True)
+objective_d2osampleconfined = Objective(model_d2osampleconfined, data_d2osampleconfined,use_weights = False)
 
 ```
 5. Fitting procedure and results
