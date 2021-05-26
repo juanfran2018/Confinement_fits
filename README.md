@@ -59,20 +59,20 @@ data_hPS.name = "hPS"
 
 #Depending on the experiments, this list will be longer: several pressures, several shear speeds
 #Pressure 1 bar, sample confined, static
-data_P1_sample_confined = ReflectDataset(os.path.join(pth,'P1_sample_confined.mft'))
-data_P1_sample_confined.name = "P1_sample_confined"
+data_d2osampleconfined = ReflectDataset(os.path.join(pth,'P1_sample_confined.mft'))
+data_d2osampleconfined.name = "P1_sample_confined"
 
 #Pressure 2 bar, sample confined, static
-data_P2_sample_confined = ReflectDataset(os.path.join(pth,'P2_sample_confined.mft'))
-data_P2_sample_confined.name = "P2_sample_confined"
+#data_P2_sample_confined = ReflectDataset(os.path.join(pth,'P2_sample_confined.mft'))
+#data_P2_sample_confined.name = "P2_sample_confined"
 
 #Pressure 1 bar, sample confined, v = 100 nm/s
-data_P1_sample_confined = ReflectDataset(os.path.join(pth,'P1_sample_confined.mft'))
-data_P1_sample_confined_v1.name = "P1_sample_confined_v1"
+#data_P1_sample_confined = ReflectDataset(os.path.join(pth,'P1_sample_confined.mft'))
+#data_P1_sample_confined_v1.name = "P1_sample_confined_v1"
 
 #Pressure 2 bar, sample confined, v = 100 nm/s
-data_P2_sample_confined = ReflectDataset(os.path.join(pth,'P2_sample_confined.mft'))
-data_P2_sample_confined_v1.name = "P2_sample_confined_v1"
+#data_P2_sample_confined = ReflectDataset(os.path.join(pth,'P2_sample_confined.mft'))
+#data_P2_sample_confined_v1.name = "P2_sample_confined_v1"
 ```
 
 3. SLD definitions
@@ -301,7 +301,7 @@ fitter = CurveFitter(objective_d2osampleconfined)
 fitter.fit('differential_evolution');
 print(objective_d2osampleconfined)
 ```
-6. Refining through MCMC 
+6. Refining through MCMC: once the values are obtained from the previous step, a better estimation of the errors (the behaviour of the parameters around the obtained value in comparison with each parameter) on the fitted parameters can be obtained by making a second fit, this time, using the Affine Invariant Markov chain Monte Carlo (MCMC) Ensemble sampler for Bayesian parameter estimation.
 
 ```python
 fitter = CurveFitter(objective_d2osampleconfined, nwalkers=200)
@@ -316,6 +316,7 @@ fitter.sample(400, random_state=1);
 ```python
 process_chain(objective_d2osampleconfined, fitter.chain);
 print(objective_d2osampleconfined)
+objective_d2osampleconfined.corner();
 ```
 
 8. Plot fit and data
@@ -338,6 +339,21 @@ plt.ylabel('Reflectivity')
 plt.xlabel('Q /$\AA^{-1}$')
 plt.ylim(0.5*1e-6, 2);
 plt.xlim(0.004, 0.2)
+
+
+
+```
+9. SLD profile
+```python 
+#SLD
+
+plt.plot(*s_d2omucinsconfined1.sld_profile(),label='$\mathregular{P=1\ bar}$')
+plt.plot(*s_d2omucinsconfined2.sld_profile(),label='$\mathregular{P=2\ bar}$')
+plt.ylim(-1, 7);
+plt.xlim(-40, 800)
+plt.legend()
+plt.ylabel('SLD /$10^{-6} \AA^{-2}$')
+plt.xlabel('distance / $\AA$');
 
 ```
 ## References
