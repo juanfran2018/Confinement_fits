@@ -1,6 +1,8 @@
-## Confinement Fits
+## Jupyter notebook for fitting Confinement and Shear Neutron Reflectivity Data
 
-Jupyter notebook for fitting Confinement and Shear Neutron Reflectivity Data
+The following material describes the software used for Neutron Reflectivity data fitting, for the particular experiments descibed on the paper (to be cited).
+
+## Schematic representation of the sample
 
 ## Using RefNX software for modelling data
 
@@ -307,7 +309,7 @@ fitter.fit('differential_evolution');
 ```
 
 
-11. Check results with data and fit plots
+11. Check results
 ```python
 ```
 ## References
