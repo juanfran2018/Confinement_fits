@@ -348,7 +348,6 @@ plt.xlim(0.004, 0.2)
 #SLD
 
 plt.plot(*s_d2omucinsconfined1.sld_profile(),label='$\mathregular{P=1\ bar}$')
-plt.plot(*s_d2omucinsconfined2.sld_profile(),label='$\mathregular{P=2\ bar}$')
 plt.ylim(-1, 7);
 plt.xlim(-40, 800)
 plt.legend()
