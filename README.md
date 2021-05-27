@@ -6,7 +6,7 @@ The following material describes the software used for Neutron Reflectivity data
 
 ## Using RefNX software for modelling data
 
-Refnx is a powerful Python package  that has been used to model and fit the Neutron Reflectometry data obtained with the Confinement Cell Nellie [[1]](#1) and the Confinement and Shear cell Ofelia [[2]](#2).
+Refnx is a powerful Python package  that has been used to model and fit the Neutron Reflectometry data obtained with the Confinement Cell Nellie [[1]](#1) and the Confinement and Shear cell Ofelia [[2]](#2)[[3]](#3).
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/55095328/119741835-cc744880-be86-11eb-9b7c-554517f9eafb.png" width = "800">
@@ -362,4 +362,7 @@ plt.xlabel('distance / $\AA$');
 <a id="2">[2]</a>
 Nordforsk Project: Neutron scattering of confined and sheared thin soft films. Retrieved from https://www.nordforsk.org/projects/neutron-scattering-confined-and-sheared-thin-soft-films (2021)
 
-<a id="3">[3]</a>  RefNX software.  Retrieved from https://refnx.readthedocs.io/en/latest/#
+<a id="3">[3]</a>
+Confinemente and Shear cell for Neutron Reflectivity experiments. Retrieved from https://github.com/juanfran2018/Ofelia-Confinement-Shear-Cell (2021)
+
+<a id="4">[4]</a>  RefNX software.  Retrieved from https://refnx.readthedocs.io/en/latest/# (2021)
